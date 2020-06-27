@@ -1,8 +1,10 @@
 const { Router } = require('express');
 const multer = require('multer');
-
+const path = require('path');
 
 const router = Router();
+
+const photoPath = path.resolve(__dirname, '../../client/photo-viewer.html');
 
 const filename = (req, file, callback) => {
   callback(null, file.originalname);
@@ -32,5 +34,9 @@ router.post('/upload', upload.single('photo'), (req, res) => {
   }
     return res.status(201).json({success: true});
 });
+
+router.get('/photo-viewer', (req, res) => {
+  res.sendFile(photoPath);
+})
 
    module.exports = router;
